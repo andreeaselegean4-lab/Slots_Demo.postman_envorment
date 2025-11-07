@@ -1,0 +1,39 @@
+{
+	"id": "a12c31c2-5de4-4604-b5db-197bc702003c",
+	"name": "Launcher",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "balance",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "betAmount",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "betIndex",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-11-07T13:22:25.421Z",
+	"_postman_exported_using": "Postman/11.70.2"
+}
