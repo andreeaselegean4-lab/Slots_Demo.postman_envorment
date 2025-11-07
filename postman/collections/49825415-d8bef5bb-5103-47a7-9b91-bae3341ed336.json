@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "49825415-d8bef5bb-5103-47a7-9b91-bae3341ed336",
+		"name": "Slots Game Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Spin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8e64d3e1-2501-4e0b-93e1-723ad13e4c6c",
+						"exec": [
+							"// Parse JSON format to object",
+							"const response = pm.response.json();",
+							"",
+							"// Test 1: Request successful",
+							"pm.test(\"Spin request successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Test 2: Response structure",
+							"pm.test(\"Response has required fields\", function () {",
+							"    pm.expect(response).to.have.property('payload');",
+							"    const payload = response.payload;",
+							"    ",
+							"    pm.expect(payload).to.have.property('display');",
+							"    pm.expect(payload).to.have.property('win');",
+							"    pm.expect(payload).to.have.property('bet');",
+							"});",
+							"",
+							"// Test 3: Validate spin data",
+							"pm.test(\"Spin completed successfully\", function () {",
+							"    const payload = response.payload;",
+							"    ",
+							"    // Check reels display",
+							"    pm.expect(payload.display).to.be.an('array');",
+							"    pm.expect(payload.display.length).to.equal(5); // 5 reels",
+							"    ",
+							"    // Check win amount",
+							"    pm.expect(payload.win).to.be.a('number');",
+							"    pm.expect(payload.win).to.be.at.least(0);",
+							"});",
+							"",
+							"// Test 4: Bet validation",
+							"pm.test(\"Bet amount matches request\", function () {",
+							"    const payload = response.payload;",
+							"    pm.expect(payload.bet.value).to.equal(0.05);",
+							"    pm.expect(payload.bet.amount).to.equal(20);",
+							"});",
+							"",
+							"// Log detailed results",
+							"console.log(\"=== SPIN RESULT ===\");",
+							"console.log(\"Full Response:\", JSON.stringify(response, null, 2));",
+							"",
+							"if (response.payload) {",
+							"    const payload = response.payload;",
+							"    console.log(\"\\nBet:\", payload.bet);",
+							"    console.log(\"Win Amount:\", payload.win);",
+							"    console.log(\"Reels:\", payload.display);",
+							"    ",
+							"    if (payload.win > 0 && payload.wins && payload.wins.length > 0) {",
+							"    console.log(\"🎉 WINNING SPIN!\");",
+							"    console.log(\"Winning lines:\", payload.wins);",
+							"} else {",
+							"    console.log(\"No win this time\");",
+							"}",
+							"    }",
+							"",
+							"// Track statistics",
+							"let totalSpins = pm.collectionVariables.get(\"totalSpins\") || 0;",
+							"let totalWins = pm.collectionVariables.get(\"totalWins\") || 0;",
+							"let totalWinAmount = pm.collectionVariables.get(\"totalWinAmount\") || 0;",
+							"",
+							"totalSpins++;",
+							"if (response.payload && response.payload.win > 0) {",
+							"    totalWins++;",
+							"    totalWinAmount += response.payload.win;",
+							"}",
+							"",
+							"pm.collectionVariables.set(\"totalSpins\", totalSpins);",
+							"pm.collectionVariables.set(\"totalWins\", totalWins);",
+							"pm.collectionVariables.set(\"totalWinAmount\", totalWinAmount);",
+							"",
+							"// like a gambling summary report",
+							"const totalBet = totalSpins * 1.0; // 0.05 * 20 = 1.0 per spin //Calculates the **total amount wagered** across all spins",
+							"const rtp = (totalWinAmount / totalBet) * 100;  //Return to player as winnings",
+							"//Example:",
+							"//- You bet: 100 EUR",
+							"//- You won: 92.5 EUR",
+							"//- RTP = (92.5 / 100) × 100 = 92.5%",
+							"",
+							"const hitRate = (totalWins / totalSpins) * 100; //Calculates the **win frequency** - what percentage of spins resulted in a win",
+							"//Example ",
+							"//- **30% hit rate** = 30 out of 100 spins won something",
+							"//- **50% hit rate** = Half of all spins won",
+							"",
+							"console.log(`\\n=== STATISTICS (${totalSpins} spins) ===`);",
+							"console.log(`Hit Rate: ${hitRate.toFixed(2)}%`);",
+							"console.log(`Total Bet: ${totalBet.toFixed(2)}`);",
+							"console.log(`Total Won: ${totalWinAmount.toFixed(2)}`);",
+							"console.log(`RTP: ${rtp.toFixed(2)}%`);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "49825415-b711f7a0-15a9-4993-99d2-c0c73c5c1dad",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://gs.avocadospins.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://gs.avocadospins.com/demo",
+						"type": "text"
+					},
+					{
+						"key": "trace",
+						"value": "4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bet\": {\n    \"value\": 0.05,\n    \"amount\": 20,\n    \"index\": 0\n  },\n  \"payload\": {},\n  \"localState\": \"{\\\"bet\\\":{\\\"amount\\\":0,\\\"value\\\":0},\\\"win\\\":0,\\\"display\\\":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]],\\\"initial\\\":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]],\\\"coingames\\\":{\\\"elapsed\\\":0,\\\"remaining\\\":0},\\\"freegames\\\":{\\\"elapsed\\\":0,\\\"remaining\\\":0},\\\"state\\\":{\\\"0.05\\\":{\\\"sockets\\\":[0,0,0,0,0],\\\"level\\\":0,\\\"progress\\\":6,\\\"max\\\":25}}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/demoplay",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"demoplay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Win lines",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "733c3785-8d0b-4ff8-a4ed-e905b1cbb825",
+						"exec": [
+							"pm.test(\"3 matching symbols pay correctly\", function() {",
+							"    // If display shows [7,7,7,X,X] on a payline",
+							"    // Check win amount matches paytable",
+							"});",
+							"",
+							"pm.test(\"5 matching symbols pay max\", function() {",
+							"    // If all 5 symbols match",
+							"    // Verify highest payout",
+							"});",
+							"",
+							"pm.test(\"Scatter wins calculated correctly\", function() {",
+							"    // Special symbols that pay anywhere",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"id": "49825415-e356f596-cd55-4fce-8873-919a49c8795f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://gs.avocadospins.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://gs.avocadospins.com/demo",
+						"type": "text"
+					},
+					{
+						"key": "trace",
+						"value": "4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bet\": {\n    \"value\": 0.05,\n    \"amount\": 20,\n    \"index\": 0\n  },\n  \"payload\": {},\n  \"localState\": \"{\\\"bet\\\":{\\\"amount\\\":0,\\\"value\\\":0},\\\"win\\\":0,\\\"display\\\":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]],\\\"initial\\\":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]],\\\"coingames\\\":{\\\"elapsed\\\":0,\\\"remaining\\\":0},\\\"freegames\\\":{\\\"elapsed\\\":0,\\\"remaining\\\":0},\\\"state\\\":{\\\"0.05\\\":{\\\"sockets\\\":[0,0,0,0,0],\\\"level\\\":0,\\\"progress\\\":6,\\\"max\\\":25}}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/demoplay",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"demoplay"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "lastSpinResult",
+			"value": ""
+		},
+		{
+			"key": "totalSpins",
+			"value": ""
+		},
+		{
+			"key": "totalWins",
+			"value": ""
+		},
+		{
+			"key": "totalWinAmount",
+			"value": ""
+		}
+	]
+}
