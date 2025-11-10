@@ -239,6 +239,18 @@
 		{
 			"key": "totalWinAmount",
 			"value": ""
+		},
+		{
+			"key": "autoSpinCount",
+			"value": ""
+		},
+		{
+			"key": "autoSpinWins",
+			"value": ""
+		},
+		{
+			"key": "autoSpinWinAmount",
+			"value": ""
 		}
 	]
 }
