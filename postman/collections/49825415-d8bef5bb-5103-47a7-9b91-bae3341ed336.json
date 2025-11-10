@@ -599,7 +599,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "35891506-69dc-4a4d-9900-d0edbd298bb7",
+				"id": "3b8f7d94-c3df-4be9-80a2-d95397c3a69e",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -662,8 +662,7 @@
 					"        pm.expect(payload.win).to.be.a('number');",
 					"        pm.expect(payload.win).to.be.at.least(0);",
 					"    });",
-					"",
-					"    // Test 7: Start and end are booleans",
+					"// Test 7: Start and end (spin) animations are booleans",
 					"    pm.test(\"Start and end flags are booleans\", function () {",
 					"        const payload = response.payload;",
 					"        pm.expect(payload.start).to.be.a('boolean');",
@@ -707,7 +706,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "5a82be18-9d65-4ff3-86af-f5685cc1d637",
+				"id": "b69fa9f8-7c80-4426-b85f-680b38efe03f",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
