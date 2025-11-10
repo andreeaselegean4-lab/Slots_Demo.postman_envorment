@@ -599,7 +599,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "97a74f20-a065-44c4-894f-b6733ab143cc",
+				"id": "2e6028a4-f877-42a5-9b23-e5ad673b363d",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -694,14 +694,19 @@
 					"}",
 					"",
 					"// Store function ",
-					"pm.collectionVariables.set(\"runCommonSlotTests\", runCommonSlotTests.toString());"
+					"pm.collectionVariables.set(\"runCommonSlotTests\", runCommonSlotTests.toString());",
+					"",
+					"",
+					"//    runCommonSlotTests(response);",
+					"",
+					""
 				]
 			}
 		},
 		{
 			"listen": "test",
 			"script": {
-				"id": "f79f8769-cfef-4eed-9eb5-fa45acec2055",
+				"id": "4270f3d5-a4a2-4fe5-afea-f61e88433caf",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
