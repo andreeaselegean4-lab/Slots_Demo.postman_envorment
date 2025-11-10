@@ -380,7 +380,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "Claim win tests",
 			"event": [
 				{
 					"listen": "test",
