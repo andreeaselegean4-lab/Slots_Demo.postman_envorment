@@ -563,14 +563,53 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "Bet change tests",
 			"id": "49825415-c5f51142-abaf-4156-beb9-8454778d3603",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "GET",
-				"header": []
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://gs.avocadospins.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://gs.avocadospins.com/demo",
+						"type": "text"
+					},
+					{
+						"key": "trace",
+						"value": "4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bet\": {\n    \"value\": 0.05,\n    \"amount\": 20,\n    \"index\": 0\n  },\n  \"payload\": {},\n  \"localState\": \"{\\\"bet\\\":{\\\"amount\\\":0,\\\"value\\\":0},\\\"win\\\":0,\\\"display\\\":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]],\\\"initial\\\":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]],\\\"coingames\\\":{\\\"elapsed\\\":0,\\\"remaining\\\":0},\\\"freegames\\\":{\\\"elapsed\\\":0,\\\"remaining\\\":0},\\\"state\\\":{\\\"0.05\\\":{\\\"sockets\\\":[0,0,0,0,0],\\\"level\\\":0,\\\"progress\\\":6,\\\"max\\\":25}}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/demoplay",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"demoplay"
+					]
+				}
 			},
 			"response": []
 		}
