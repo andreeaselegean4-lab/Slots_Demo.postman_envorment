@@ -599,20 +599,15 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "d07af08d-627d-4a32-9649-665a27b3039c",
+				"id": "97a74f20-a065-44c4-894f-b6733ab143cc",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
 				"exec": [
-					"// ============================================",
-					"// SHARED HELPER FUNCTION FOR SLOT GAME TESTS",
-					"// ============================================",
-					"// Put this in Collection > Pre-request Scripts tab",
-					"// Then use runCommonSlotTests() in each request's Post-res tab",
 					"",
 					"function runCommonSlotTests(response) {",
 					"    // Test 1: Request successful",
-					"    pm.test(\"Request successful\", function () {",
+					"    pm.test(\"Request successful\", function () ß{",
 					"        pm.response.to.have.status(200);",
 					"    });",
 					"",
@@ -706,7 +701,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "3f0f830c-9596-42e7-831a-d3b12f8c46bb",
+				"id": "f79f8769-cfef-4eed-9eb5-fa45acec2055",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
