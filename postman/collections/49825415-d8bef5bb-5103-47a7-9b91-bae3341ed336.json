@@ -599,7 +599,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "14105a0e-2af9-4e3b-8d62-51f4ad5f35d7",
+				"id": "35891506-69dc-4a4d-9900-d0edbd298bb7",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -634,7 +634,7 @@
 					"        pm.expect(payload).to.have.property('collection');",
 					"    });",
 					"",
-					"    // Test 4: Display is 2D array with correct structure",
+					"    // Test 4: Display is  array with correct structure",
 					"    pm.test(\"Display has 5 reels with 3 symbols each\", function () {",
 					"        const payload = response.payload;",
 					"        pm.expect(payload.display).to.be.an('array');",
@@ -707,7 +707,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "45c24b66-9f3c-4178-acc2-9fde5f4daa1a",
+				"id": "5a82be18-9d65-4ff3-86af-f5685cc1d637",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
