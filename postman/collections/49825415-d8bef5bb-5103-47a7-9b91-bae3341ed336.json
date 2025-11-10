@@ -212,13 +212,170 @@
 		},
 		{
 			"name": "Auto-Spin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38fba277-c88d-4c52-92ac-d34a9d04bfd8",
+						"exec": [
+							"",
+							"const response = pm.response.json();",
+							"",
+							"// Test 1: Request successful",
+							"pm.test(\"Auto-spin request successful\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Test 2: Response has required fields",
+							"pm.test(\"Response has required fields\", function () {",
+							"    pm.expect(response).to.have.property('payload');",
+							"    pm.expect(response).to.have.property('localState');",
+							"});",
+							"",
+							"// Test 3: Payload has correct structure",
+							"pm.test(\"Payload has all required fields\", function () {",
+							"    const payload = response.payload;",
+							"    pm.expect(payload).to.have.property('start');",
+							"    pm.expect(payload).to.have.property('end');",
+							"    pm.expect(payload).to.have.property('win');",
+							"    pm.expect(payload).to.have.property('bet');",
+							"    pm.expect(payload).to.have.property('display');",
+							"    pm.expect(payload).to.have.property('wins');",
+							"    pm.expect(payload).to.have.property('collection');",
+							"});",
+							"",
+							"// Test 4: Display is 2D array with correct structure",
+							"pm.test(\"Display has 5 reels with 3 symbols each\", function () {",
+							"    const payload = response.payload;",
+							"    pm.expect(payload.display).to.be.an('array');",
+							"    pm.expect(payload.display.length).to.equal(5); // 5 reels",
+							"    ",
+							"    // Check each reel has 3 symbols",
+							"    payload.display.forEach((reel, index) => {",
+							"        pm.expect(reel).to.be.an('array');",
+							"        pm.expect(reel.length).to.equal(3);",
+							"    });",
+							"});",
+							"",
+							"// Test 5: Bet data is valid",
+							"pm.test(\"Bet data is valid\", function () {",
+							"    const payload = response.payload;",
+							"    pm.expect(payload.bet).to.be.an('object');",
+							"    pm.expect(payload.bet.amount).to.be.a('number');",
+							"    pm.expect(payload.bet.value).to.be.a('number');",
+							"    pm.expect(payload.bet.amount).to.be.greaterThan(0);",
+							"    pm.expect(payload.bet.value).to.be.greaterThan(0);",
+							"});",
+							"",
+							"// Test 6: Win data is valid",
+							"pm.test(\"Win data is valid\", function () {",
+							"    const payload = response.payload;",
+							"    pm.expect(payload.win).to.be.a('number');",
+							"    pm.expect(payload.win).to.be.at.least(0);",
+							"});",
+							"",
+							"// Test 7: Start and end are booleans",
+							"pm.test(\"Start and end flags are booleans\", function () {",
+							"    const payload = response.payload;",
+							"    pm.expect(payload.start).to.be.a('boolean');",
+							"    pm.expect(payload.end).to.be.a('boolean');",
+							"});",
+							"",
+							"// Test 8: Wins array exists",
+							"pm.test(\"Wins array exists and is valid\", function () {",
+							"    const payload = response.payload;",
+							"    pm.expect(payload.wins).to.be.an('array');",
+							"    // Each win object should have required fields",
+							"    if (payload.wins.length > 0) {",
+							"        payload.wins.forEach((win) => {",
+							"            pm.expect(win).to.have.property('amount');",
+							"            pm.expect(win).to.have.property('item');",
+							"        });",
+							"    }",
+							"});",
+							"",
+							"// Test 9: Collection object exists",
+							"pm.test(\"Collection data exists\", function () {",
+							"    const payload = response.payload;",
+							"    pm.expect(payload.collection).to.be.an('object');",
+							"});",
+							"",
+							"// Test 10: Response time is acceptable",
+							"pm.test(\"Response time is acceptable\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"",
+							"",
+							"// Log auto-spin result",
+							"console.log(\"\\n=== AUTO-SPIN RESULT ===\");",
+							"console.log(\"Bet:\", response.payload.bet);",
+							"console.log(\"Win Amount:\", response.payload.win);",
+							"console.log(\"Reels Display:\", response.payload.display);",
+							"console.log(\"Start:\", response.payload.start);",
+							"console.log(\"End:\", response.payload.end);",
+							"",
+							"if (response.payload.win > 0) {",
+							"    console.log(\"✓ WINNING SPIN\");",
+							"    console.log(\"Winning lines:\", response.payload.wins);",
+							"} else {",
+							"    console.log(\"No win this round\");",
+							"}",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"id": "49825415-83ef19e7-8d30-460f-9cd6-3c82298bb658",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
-				"header": []
+				"header": [
+					{
+						"key": "Origin",
+						"value": "https://gs.avocadospins.com",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "https://gs.avocadospins.com/demo",
+						"type": "text"
+					},
+					{
+						"key": "trace",
+						"value": "4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"bet\": {\n    \"value\": 0.05,\n    \"amount\": 20,\n    \"index\": 0\n  },\n  \"payload\": {},\n  \"localState\": \"{\\\"bet\\\":{\\\"amount\\\":0,\\\"value\\\":0},\\\"win\\\":0,\\\"display\\\":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]],\\\"initial\\\":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]],\\\"coingames\\\":{\\\"elapsed\\\":0,\\\"remaining\\\":0},\\\"freegames\\\":{\\\"elapsed\\\":0,\\\"remaining\\\":0},\\\"state\\\":{\\\"0.05\\\":{\\\"sockets\\\":[0,0,0,0,0],\\\"level\\\":0,\\\"progress\\\":6,\\\"max\\\":25}}}\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/demoplay",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"demoplay"
+					]
+				}
 			},
 			"response": []
 		}
