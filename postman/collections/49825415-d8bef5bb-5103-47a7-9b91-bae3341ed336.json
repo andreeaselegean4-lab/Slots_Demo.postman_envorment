@@ -211,7 +211,7 @@
 			"response": []
 		},
 		{
-			"name": "Auto-Spin",
+			"name": "Auto-Spin tests",
 			"event": [
 				{
 					"listen": "test",
@@ -380,7 +380,7 @@
 			"response": []
 		},
 		{
-			"name": "Claim win",
+			"name": "Claim win tests",
 			"event": [
 				{
 					"listen": "test",
