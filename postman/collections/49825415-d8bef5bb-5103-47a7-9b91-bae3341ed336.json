@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Spin",
+			"name": "Spin tests",
 			"event": [
 				{
 					"listen": "test",
