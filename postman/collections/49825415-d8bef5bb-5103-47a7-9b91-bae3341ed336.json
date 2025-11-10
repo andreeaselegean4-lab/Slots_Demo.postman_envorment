@@ -599,7 +599,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "90386957-3ede-41f8-a27a-e36f2db5043a",
+				"id": "d07af08d-627d-4a32-9649-665a27b3039c",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -698,7 +698,7 @@
 					"    });",
 					"}",
 					"",
-					"// Store function in collection variables so it's accessible",
+					"// Store function ",
 					"pm.collectionVariables.set(\"runCommonSlotTests\", runCommonSlotTests.toString());"
 				]
 			}
@@ -706,7 +706,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "a4d03df6-b9bc-41b2-b2d0-09fe317fea08",
+				"id": "3f0f830c-9596-42e7-831a-d3b12f8c46bb",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
