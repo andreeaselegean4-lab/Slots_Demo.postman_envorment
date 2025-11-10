@@ -599,7 +599,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "3b8f7d94-c3df-4be9-80a2-d95397c3a69e",
+				"id": "90386957-3ede-41f8-a27a-e36f2db5043a",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -681,7 +681,7 @@
 					"        }",
 					"    });",
 					"",
-					"    // Test 9: Collection object exists",
+					"    // Test 9: Collection progress object exists (tracking level, progress)",
 					"    pm.test(\"Collection data exists\", function () {",
 					"        const payload = response.payload;",
 					"        pm.expect(payload.collection).to.be.an('object');",
@@ -706,7 +706,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "b69fa9f8-7c80-4426-b85f-680b38efe03f",
+				"id": "a4d03df6-b9bc-41b2-b2d0-09fe317fea08",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
