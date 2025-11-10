@@ -98,7 +98,7 @@
 					"script": {
 						"id": "edccc5ff-90c4-4ead-9be9-df8250b54d94",
 						"exec": [
-							"// Put this in Collection > Pre-request Scripts tab",
+							"",
 							"// (This runs before every request)",
 							"",
 							"pm.globals.set(\"runSpinTests\", function() {",
@@ -116,7 +116,7 @@
 							"        pm.expect(payload).to.have.property('bet');",
 							"    });",
 							"    ",
-							"    // ... rest of your tests",
+							"   ",
 							"});"
 						],
 						"type": "text/javascript",
